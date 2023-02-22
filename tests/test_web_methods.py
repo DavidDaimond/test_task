@@ -30,10 +30,8 @@ def get_main_page(driver):
 
     _endpoints_blocks = endpoints_element.find_elements(By.TAG_NAME, WebPage.endpoint_tag)
 
-    get_method_name = lambda block: re.sub("[<>]", "", re.sub("[ \-]+", "_", block.text)) + "_" + \
-                                    block.get_attribute('data-http').upper()
-
-    endpoints_blocks = {get_method_name(block.text): block for block in _endpoints_blocks}
+    endpoints_blocks = {re.sub("[<>]", "", re.sub("[ \-]+", "_", block.text)) + "_" +
+                        block.get_attribute('data-http').upper(): block for block in _endpoints_blocks}
 
     main_page = MainPage(endpoints_element=endpoints_element,
                          response_element=response_element,
@@ -50,12 +48,12 @@ def test_web_to_api(driver, main_page, block_name):
     method = block.get_attribute('data-http')
     url = main_page.request_element.find_element(By.TAG_NAME, "a").get_attribute('href')
 
-    data = ...
+    data = None
     output_request = main_page.request_element.find_element(By.TAG_NAME, 'pre')
     if not output_request.get_attribute('hidden'):
         data = json.loads(output_request.text)
 
-    resp = req.request(method, url, data=data)
+    resp = req.request(method, url) if data is None else req.request(method, url, data=data)
 
     response_code = int(main_page.response_element.find_element(By.CLASS_NAME, 'response-code').text)
     assert response_code == resp.status_code
