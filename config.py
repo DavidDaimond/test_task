@@ -12,6 +12,8 @@ class WebPage:
     response_code_class = 'response-code'  # need text
     response_output_tag = 'pre'  # need text
 
+    request_block_class = 'request'
+
 
 class API:
     url = "https://reqres.in/api/"
@@ -26,10 +28,12 @@ class API:
         "UPDATE_PATCH": "https://reqres.in/api/users/",  # requires id
         "DELETE_DELETE": "https://reqres.in/api/users/",  # requires id
         "REGISTER_SUCCESSFUL_POST": "https://reqres.in/api/register",
-        "REGISTER_UNSUCCESSFUL_POST": "https://reqres.in/api/register",
         "LOGIN_SUCCESSFUL_POST": "https://reqres.in/api/login",
-        "LOGIN_UNSUCCESSFUL_POST": "https://reqres.in/api/login",
         "DELAYED_RESPONSE_GET": "https://reqres.in/api/users",  # requires delay param
+        "REGISTER_UNSUCCESSFUL_POST": "https://reqres.in/api/register",
+        "LOGIN_UNSUCCESSFUL_POST": "https://reqres.in/api/login",
+        "SINGLE_USER_NOT_FOUND_GET": "https://reqres.in/api/users/23",
+        "SINGLE_RESOURCE_NOT_FOUND_GET": "https://reqres.in/api/unknown/23",
     }
 
     users_schema = {'id': int,

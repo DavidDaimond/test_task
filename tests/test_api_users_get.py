@@ -1,7 +1,6 @@
 import pytest
 
 import requests as req
-from random import randint
 
 from config import API
 
@@ -29,3 +28,8 @@ def test_get_list_users(page):
     resp = req.get(API.methods['LIST_USERS_GET'], params={'page': page})
     assert resp.status_code == 200
 
+
+@pytest.mark.parametrize("delay", (dl for dl in range(0, 3)))
+def test_get_list_users_delay(delay):
+    resp = req.get(API.methods['DELAYED_RESPONSE_GET'], params={'delay': delay})
+    assert resp.status_code == 200

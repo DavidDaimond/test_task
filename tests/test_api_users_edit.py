@@ -54,3 +54,18 @@ def test_update_patch_user(uid, data):
 def test_delete_user(uid):
     resp = req.delete(API.methods['DELETE_DELETE'] + str(uid))
     assert resp.status_code == 204
+
+
+@pytest.mark.parametrize("data,status_code", (
+        ({"email": "michael.lawson@reqres.in", "password": "iloveducksick"}, 200),
+        ({"email": "lindsay.ferguson@reqres.in", "password": "ship"}, 200),
+
+        ({"email": "tobias.funke@reqres.in", "password": "pass3641ord"}, 200),
+        ({"email": "byron.fields@reqres.in", "password": "ilov3sick"}, 200),
+        ({"email": "nuck.figgers@reqres.in", "password": "ilonmuskisguy"}, 400),
+        ({"email": "d.d.d@reqres.in", "password": "IwannaworkinIBSsomuchpleasehiremeIloveyourcompany"}, 400)
+)
+                         )
+def test_register_user(data, status_code):
+    resp = req.post(API.methods['REGISTER_SUCCESSFUL_POST'], json=data)
+    assert resp.status_code == status_code
